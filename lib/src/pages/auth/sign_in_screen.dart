@@ -1,9 +1,9 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
-import 'package:greengrocer/src/pages/auth/sign_up_screen.dart';
-import 'package:greengrocer/src/pages/base/base_screen.dart';
 import 'package:greengrocer/src/pages/common/app_name_widget.dart';
+import 'package:greengrocer/src/pages_routes/app_pages.dart';
 
 import '../common/custom_text_field.dart';
 
@@ -26,12 +26,10 @@ class SignInScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    //Nome do app
                     const AppNameWidget(
                       greenTitleColor: Colors.white,
                       textSize: 40,
                     ),
-                    //Categorias
                     SizedBox(
                       height: 30,
                       child: DefaultTextStyle(
@@ -55,8 +53,6 @@ class SignInScreen extends StatelessWidget {
                   ],
                 ),
               ),
-
-              //Formulário
               Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 32,
@@ -71,20 +67,15 @@ class SignInScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    //Email
                     const CustomTextField(
                       icon: Icons.email,
                       label: 'Email',
                     ),
-
-                    //Senha
                     const CustomTextField(
                       icon: Icons.lock,
                       label: 'Senha',
                       isSecret: true,
                     ),
-
-                    //Botão de entrar
                     SizedBox(
                       height: 50,
                       child: ElevatedButton(
@@ -94,10 +85,7 @@ class SignInScreen extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(builder: (c) {
-                            return const BaseScreen();
-                          }));
+                          Get.offNamed(PagesRoutes.baseRoute);
                         },
                         child: const Text(
                           'Entrar',
@@ -107,8 +95,6 @@ class SignInScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-
-                    //Esqueceu a senha
                     Align(
                       alignment: Alignment.centerRight,
                       child: TextButton(
@@ -121,8 +107,6 @@ class SignInScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-
-                    //Divisor
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10),
                       child: Row(
@@ -146,8 +130,6 @@ class SignInScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-
-                    //Botão de novo usuário
                     SizedBox(
                       height: 50,
                       child: OutlinedButton(
@@ -161,10 +143,7 @@ class SignInScreen extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (c) {
-                            return SignUpScreen();
-                          }));
+                          Get.toNamed(PagesRoutes.signUpRoute);
                         },
                         child: const Text(
                           'Criar conta',
