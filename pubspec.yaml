@@ -47,6 +47,7 @@ dependencies:
   json_annotation: ^4.6.0
   freezed: ^2.0.2
   freezed_annotation: ^2.0.1
+  flutter_secure_storage: ^5.0.2
 
 
 dev_dependencies:
