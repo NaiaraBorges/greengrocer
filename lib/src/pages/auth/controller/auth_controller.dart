@@ -60,7 +60,7 @@ class AuthController extends GetxController {
     Get.offAllNamed(PagesRoutes.baseRoute);
   }
 
-  Future<void> SignUp() async {
+  Future<void> signUp() async {
     isLoading.value = true;
 
     AuthResult result = await authRepository.signUp(user);
