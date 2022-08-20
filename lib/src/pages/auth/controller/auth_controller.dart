@@ -14,14 +14,13 @@ class AuthController extends GetxController {
 
   UserModel user = UserModel();
 
-  //@override
-  // void onInit() {
-  // super.onInit();
-  // validateToken();
-  // }
+  @override
+  void onInit() {
+    super.onInit();
+    validateToken();
+  }
 
   Future<void> validateToken() async {
-    // Recuperar o token que foi salvo localmente
     String? token = await utilsServices.getLocalData(key: StorageKeys.token);
 
     if (token == null) {
@@ -46,21 +45,13 @@ class AuthController extends GetxController {
   }
 
   Future<void> signOut() async {
-    //Zerar o user
     user = UserModel();
-
-    //Remover o token localmente
     await utilsServices.removeLocalData(key: StorageKeys.token);
-
-    //Ir para login
     Get.offAllNamed(PagesRoutes.signInRoute);
   }
 
   void saveTokenAndProceedToBase() {
-    //Salvar o token
     utilsServices.saveLocalData(key: StorageKeys.token, data: user.token!);
-
-    //Ir para a base
     Get.offAllNamed(PagesRoutes.baseRoute);
   }
 
