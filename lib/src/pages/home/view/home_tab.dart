@@ -6,11 +6,9 @@ import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/pages/common/app_name_widget.dart';
 import 'package:greengrocer/src/pages/common/custom_shimmer.dart';
-import 'package:greengrocer/src/config/app_data.dart' as app_data;
 import 'package:greengrocer/src/pages/home/controller/home_controller.dart';
 import 'package:greengrocer/src/pages/home/view/components/category_tile.dart';
 import 'package:greengrocer/src/pages/home/view/components/item_tile.dart';
-import 'package:greengrocer/src/services/utils_services.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({Key? key}) : super(key: key);
@@ -28,12 +26,7 @@ class _HomeTabState extends State<HomeTab> {
     runAddToCardAnimation(gkImage);
   }
 
-  final UtilsServices utilsServices = UtilsServices();
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  final controller = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +83,9 @@ class _HomeTabState extends State<HomeTab> {
                 vertical: 10,
               ),
               child: TextFormField(
+                onChanged: (value) {
+                  controller.searchTitle.value = value;
+                },
                 decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
