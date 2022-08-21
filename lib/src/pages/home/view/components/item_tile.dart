@@ -57,7 +57,7 @@ class _ItemTileState extends State<ItemTile> {
                   Expanded(
                     child: Hero(
                       tag: widget.item.imgUrl,
-                      child: Image.asset(
+                      child: Image.network(
                         widget.item.imgUrl,
                         key: imageGk,
                       ),
@@ -73,7 +73,7 @@ class _ItemTileState extends State<ItemTile> {
                     ),
                   ),
 
-                  //Preço - unidade de medida
+                  //Preço - unidade
                   Row(
                     children: [
                       Text(
