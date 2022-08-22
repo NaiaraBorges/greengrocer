@@ -80,6 +80,39 @@ class HomeController extends GetxController {
     );
   }
 
+  void filterByTitle() {
+    //Apagar todos os produtos das categorias
+    for (var category in allCategories) {
+      category.items.clear();
+      category.pagination = 0;
+    }
+
+    if (searchTitle.value.isEmpty) {
+      allCategories.removeAt(0);
+    } else {
+      CategoryModel? c =
+          allCategories.firstWhereOrNull((category) => category.id == '');
+      if (c == null) {
+        //Criar uma nova categoria com todos os produtos
+        final allProductsCategory = CategoryModel(
+          title: 'Todos',
+          id: '',
+          items: [],
+          pagination: 0,
+        );
+
+        allCategories.insert(0, allProductsCategory);
+      } else {
+        c.items.clear();
+        c.pagination = 0;
+      }
+    }
+
+    currentCategory = allCategories.first;
+    update();
+    getAllProducts();
+  }
+
   void loadMoreProducts() {
     currentCategory!.pagination++;
     getAllProducts(canLoad: false);
@@ -92,6 +125,7 @@ class HomeController extends GetxController {
 
     Map<String, dynamic> body = {
       'page': currentCategory!.pagination,
+      // Comentar categoryId para mostrar todos os produtos na tela(Backend não encontra e mostra todos)
       'categoryId': currentCategory!.id,
       'itemsPerPage': itemsPerPage,
     };
