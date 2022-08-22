@@ -39,9 +39,7 @@ class HomeController extends GetxController {
 
     debounce(
       searchTitle,
-      (_) {
-        update();
-      },
+      (_) => filterByTitle(),
       time: const Duration(milliseconds: 600),
     );
 
@@ -90,8 +88,7 @@ class HomeController extends GetxController {
     if (searchTitle.value.isEmpty) {
       allCategories.removeAt(0);
     } else {
-      CategoryModel? c =
-          allCategories.firstWhereOrNull((category) => category.id == '');
+      CategoryModel? c = allCategories.firstWhereOrNull((cat) => cat.id == '');
       if (c == null) {
         //Criar uma nova categoria com todos os produtos
         final allProductsCategory = CategoryModel(
@@ -129,6 +126,14 @@ class HomeController extends GetxController {
       'categoryId': currentCategory!.id,
       'itemsPerPage': itemsPerPage,
     };
+
+    if (searchTitle.value.isNotEmpty) {
+      body['title'] = searchTitle.value;
+
+      if (currentCategory!.id == '') {
+        body.remove('categoryId');
+      }
+    }
 
     HomeResult<ItemModel> result = await homeRepository.getAllProducts(body);
 
