@@ -28,8 +28,6 @@ class _HomeTabState extends State<HomeTab> {
     runAddToCardAnimation(gkImage);
   }
 
-  //final controller = Get.find<HomeController>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

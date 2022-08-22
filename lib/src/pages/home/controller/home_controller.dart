@@ -122,7 +122,7 @@ class HomeController extends GetxController {
 
     Map<String, dynamic> body = {
       'page': currentCategory!.pagination,
-      // Comentar categoryId para mostrar todos os produtos na tela(Backend não encontra e mostra todos)
+      // Comentar categoryId para mostrar todos os produtos na tela
       'categoryId': currentCategory!.id,
       'itemsPerPage': itemsPerPage,
     };
