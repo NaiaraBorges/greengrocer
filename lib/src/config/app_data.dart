@@ -1,4 +1,3 @@
-import 'package:greengrocer/src/models/cart_item_model.dart';
 import 'package:greengrocer/src/models/item_model.dart';
 import 'package:greengrocer/src/models/order_model.dart';
 import 'package:greengrocer/src/models/user_model.dart';

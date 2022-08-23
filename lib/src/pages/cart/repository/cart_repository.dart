@@ -49,7 +49,7 @@ class CartRepository {
           'productId': productId,
         },
         headers: {
-          'token': token,
+          'X-Parse-Session-Token': token,
         });
 
     if (result['result'] != null) {
