@@ -60,13 +60,27 @@ class CartController extends GetxController {
     if (itemIndex >= 0) {
       cartItems[itemIndex].quantity += quantity;
     } else {
-      cartItems.add(
-        CartItemModel(
-          id: '',
-          item: item,
-          quantity: quantity,
-        ),
+      final CartResult<String> result = await cartRepository.addItemToCart(
+        userId: authController.user.id!,
+        token: authController.user.token!,
+        productId: item.id,
+        quantity: quantity,
       );
+
+      result.when(success: (cartItemId) {
+        cartItems.add(
+          CartItemModel(
+            id: cartItemId,
+            item: item,
+            quantity: quantity,
+          ),
+        );
+      }, error: (message) {
+        utilsServices.showToast(
+          message: message,
+          isError: true,
+        );
+      });
     }
     update();
   }
