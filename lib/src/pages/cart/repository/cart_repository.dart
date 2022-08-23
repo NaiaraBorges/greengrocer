@@ -1,10 +1,12 @@
 import 'package:greengrocer/src/constants/endpoints.dart';
+import 'package:greengrocer/src/models/cart_item_model.dart';
+import 'package:greengrocer/src/pages/cart/cart_result/cart_result.dart';
 import 'package:greengrocer/src/services/http_manager.dart';
 
 class CartRepository {
   final _httpManager = HttpManager();
 
-  Future getCartItems({
+  Future<CartResult<List<CartItemModel>>> getCartItems({
     required String token,
     required String userId,
   }) async {
@@ -20,9 +22,15 @@ class CartRepository {
     );
 
     if (result['result'] != null) {
-      print(result['result']);
+      List<CartItemModel> data =
+          List<Map<String, dynamic>>.from(result['result'])
+              .map(CartItemModel.fromJson)
+              .toList();
+
+      return CartResult<List<CartItemModel>>.success(data);
     } else {
-      print('Ocorreu um erro ao recuperar os itens do carrinho');
+      return CartResult.error(
+          'Ocorreu um erro ao recuperar os itens do carrinho');
     }
   }
 }
