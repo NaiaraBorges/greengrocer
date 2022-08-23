@@ -8,12 +8,11 @@ import 'package:greengrocer/src/pages/common/quantity_widget.dart';
 import 'package:greengrocer/src/services/utils_services.dart';
 
 class ProductScreen extends StatefulWidget {
-  const ProductScreen({
+  ProductScreen({
     Key? key,
-    required this.item,
   }) : super(key: key);
 
-  final ItemModel item;
+  final ItemModel item = Get.arguments;
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
