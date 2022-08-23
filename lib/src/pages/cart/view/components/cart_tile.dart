@@ -30,7 +30,7 @@ class _CartTileState extends State<CartTile> {
       ),
       child: ListTile(
         //imagem
-        leading: Image.asset(
+        leading: Image.network(
           widget.cartItem.item.imgUrl,
           height: 60,
           width: 60,

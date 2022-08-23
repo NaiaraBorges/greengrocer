@@ -75,7 +75,7 @@ List<String> categories = [
   'Cereais',
 ];
 
-List<CartItemModel> cartItems = [
+/*List<CartItemModel> cartItems = [
   CartItemModel(
     item: apple,
     quantity: 2,
@@ -89,6 +89,8 @@ List<CartItemModel> cartItems = [
     quantity: 3,
   ),
 ];
+
+*/
 
 UserModel user = UserModel(
   phone: '99 9 9999-9999',
@@ -112,7 +114,7 @@ List<OrderModel> orders = [
     status: 'pending_payment',
     total: 11.0,
     items: [
-      CartItemModel(
+      /*CartItemModel(
         item: apple,
         quantity: 2,
       ),
@@ -120,6 +122,7 @@ List<OrderModel> orders = [
         item: mango,
         quantity: 2,
       ),
+      */
     ],
   ),
 
@@ -136,10 +139,12 @@ List<OrderModel> orders = [
     status: 'delivered',
     total: 11.5,
     items: [
+      /*
       CartItemModel(
         item: guava,
         quantity: 1,
       ),
+      */
     ],
   ),
 ];
