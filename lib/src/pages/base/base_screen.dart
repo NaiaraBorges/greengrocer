@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:greengrocer/src/pages/base/controller/navigation_controller.dart';
 import 'package:greengrocer/src/pages/cart/view/cart_tab.dart';
 import 'package:greengrocer/src/pages/home/view/home_tab.dart';
-import 'package:greengrocer/src/pages/orders/orders_tab.dart';
+import 'package:greengrocer/src/pages/orders/view/orders_tab.dart';
 import 'package:greengrocer/src/pages/profile/profile_tab.dart';
 
 class BaseScreen extends StatefulWidget {
