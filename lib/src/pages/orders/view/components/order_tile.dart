@@ -29,7 +29,11 @@ class OrderTile extends StatelessWidget {
           global: false,
           builder: (controller) {
             return ExpansionTile(
-              // initiallyExpanded: order.status == 'pending_payment',
+              onExpansionChanged: (value) {
+                if (value && order.items.isEmpty) {
+                  controller.getOrderItems();
+                }
+              },
               title: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,92 +50,101 @@ class OrderTile extends StatelessWidget {
               ),
               childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
               expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                IntrinsicHeight(
-                  child: Row(
-                    children: [
-                      //Lista de produtos
-                      Expanded(
-                        flex: 3,
-                        child: SizedBox(
-                          height: 150,
-                          child: ListView(
-                            children: order.items.map((orderItem) {
-                              return _OrderItemWidget(
-                                utilsServices: utilsServices,
-                                orderItem: orderItem,
-                              );
-                            }).toList(),
+              children: controller.isLoading
+                  ? [
+                      Container(
+                        height: 80,
+                        alignment: Alignment.center,
+                        child: const CircularProgressIndicator(),
+                      ),
+                    ]
+                  : [
+                      IntrinsicHeight(
+                        child: Row(
+                          children: [
+                            //Lista de produtos
+                            Expanded(
+                              flex: 3,
+                              child: SizedBox(
+                                height: 150,
+                                child: ListView(
+                                  children: order.items.map((orderItem) {
+                                    return _OrderItemWidget(
+                                      utilsServices: utilsServices,
+                                      orderItem: orderItem,
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            ),
+                            //Divisão
+                            VerticalDivider(
+                              color: Colors.grey.shade300,
+                              thickness: 2,
+                              width: 8,
+                            ),
+
+                            //Status do pedido
+                            Expanded(
+                              flex: 2,
+                              child: OrderStatusWidget(
+                                status: order.status,
+                                isOverdue: order.overdueDateTime
+                                    .isBefore(DateTime.now()),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      //Total
+                      Text.rich(
+                        TextSpan(
+                          style: const TextStyle(
+                            fontSize: 20,
                           ),
+                          children: [
+                            const TextSpan(
+                              text: 'Total ',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextSpan(
+                              text: utilsServices.pricetoCurrency(order.total),
+                            ),
+                          ],
                         ),
                       ),
-                      //Divisão
-                      VerticalDivider(
-                        color: Colors.grey.shade300,
-                        thickness: 2,
-                        width: 8,
-                      ),
 
-                      //Status do pedido
-                      Expanded(
-                        flex: 2,
-                        child: OrderStatusWidget(
-                          status: order.status,
-                          isOverdue:
-                              order.overdueDateTime.isBefore(DateTime.now()),
+                      //Button de pagamento
+                      Visibility(
+                        visible: order.status == 'pending_payment' &&
+                            !order.isOverDue,
+                        child: ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (_) {
+                                return PaymentDialog(
+                                  order: order,
+                                );
+                              },
+                            );
+                          },
+                          icon: Image.asset(
+                            'assets/images/pix.png',
+                            height: 18,
+                          ),
+                          label: const Text('Ver QR Code Pix'),
                         ),
                       ),
                     ],
-                  ),
-                ),
-
-                //Total
-                Text.rich(
-                  TextSpan(
-                    style: const TextStyle(
-                      fontSize: 20,
-                    ),
-                    children: [
-                      const TextSpan(
-                        text: 'Total ',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      TextSpan(
-                        text: utilsServices.pricetoCurrency(order.total),
-                      ),
-                    ],
-                  ),
-                ),
-
-                //Button de pagamento
-                Visibility(
-                  visible: order.status == 'pending_payment',
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (_) {
-                          return PaymentDialog(
-                            order: order,
-                          );
-                        },
-                      );
-                    },
-                    icon: Image.asset(
-                      'assets/images/pix.png',
-                      height: 18,
-                    ),
-                    label: const Text('Ver QR Code Pix'),
-                  ),
-                ),
-              ],
             );
           },
         ),
