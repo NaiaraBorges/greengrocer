@@ -13,6 +13,7 @@
 
 
 ## <dt> :gear: Configuração de desenvolvimento </dt>
+<p>Clone o repositório e execute os seguintes comandos:</p>
 
 ```shell 
 
