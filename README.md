@@ -30,7 +30,7 @@
 - [Repositório oficial de pacotes (pubdev)](https://pub.dev/)
 
 
-## <dt> 💚🥦 Imagens da aplicação 🍇🥝 </dt>
+## <dt> 💚 Imagens da aplicação 🍇 </dt>
 
 <img src="/assets/images/greengrocer_mockup.png" width="1200px" />
 <img src="/assets/images/greengrocer_mockup_2.png" width="1200px" />
