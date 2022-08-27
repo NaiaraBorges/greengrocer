@@ -30,22 +30,17 @@ class _CartTileState extends State<CartTile> {
         borderRadius: BorderRadius.circular(16),
       ),
       child: ListTile(
-        //imagem
         leading: Image.network(
           widget.cartItem.item.imgUrl,
           height: 60,
           width: 60,
         ),
-
-        //titulo
         title: Text(
           widget.cartItem.item.itemName,
           style: const TextStyle(
             fontWeight: FontWeight.w500,
           ),
         ),
-
-        //Total
         subtitle: Text(
           utilsServices.pricetoCurrency(widget.cartItem.totalPrice()),
           style: TextStyle(
@@ -53,8 +48,6 @@ class _CartTileState extends State<CartTile> {
             fontWeight: FontWeight.bold,
           ),
         ),
-
-        //quantidade
         trailing: QuantityWidget(
           value: widget.cartItem.quantity,
           suffixText: widget.cartItem.item.unit,
