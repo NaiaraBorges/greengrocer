@@ -16,7 +16,6 @@ class HomeController extends GetxController {
   List<CategoryModel> allCategories = [];
   CategoryModel? currentCategory;
   List<ItemModel> get allProducts => currentCategory?.items ?? [];
-
   RxString searchTitle = ''.obs;
 
   bool get isLastPage {
@@ -79,7 +78,6 @@ class HomeController extends GetxController {
   }
 
   void filterByTitle() {
-    //Apagar todos os produtos das categorias
     for (var category in allCategories) {
       category.items.clear();
       category.pagination = 0;
@@ -90,7 +88,6 @@ class HomeController extends GetxController {
     } else {
       CategoryModel? c = allCategories.firstWhereOrNull((cat) => cat.id == '');
       if (c == null) {
-        //Criar uma nova categoria com todos os produtos
         final allProductsCategory = CategoryModel(
           title: 'Todos',
           id: '',
@@ -122,7 +119,6 @@ class HomeController extends GetxController {
 
     Map<String, dynamic> body = {
       'page': currentCategory!.pagination,
-      // Comentar categoryId para mostrar todos os produtos na tela
       'categoryId': currentCategory!.id,
       'itemsPerPage': itemsPerPage,
     };
